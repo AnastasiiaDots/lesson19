@@ -17,36 +17,21 @@ const timer = () => {
     greetings.innerHTML = "Good evening!";
   }
 
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const dayOfWeek = daysOfWeek[today.getDay()];
+  const dayOfWeek = today.toLocaleDateString("en-US", { weekday: "long" });
   weekday.innerHTML = "Todays is:" + dayOfWeek;
 
-  const minutes = today.getMinutes().toString().padStart(2, "0");
-  const seconds = today.getSeconds().toString().padStart(2, "0");
-  const formattedTime = `${hour}:${minutes}:${seconds}`;
+  const formattedTime = today.toLocaleTimeString("en-US");
   currentTime.innerHTML = "Current time: " + formattedTime;
 
   const newYearDate = new Date(today.getFullYear() + 1, 0, 1);
   const timeRemaining = newYearDate - today;
   const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-  const hours = Math.floor(
-    (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  const minutesRemaining = Math.floor(
-    (timeRemaining % (1000 * 60 * 60)) / (1000 * 60)
-  );
-  const secondsRemaining = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-  const formattedCountdown = `${days}d ${hours}h ${minutesRemaining}m ${secondsRemaining}s`;
+
+  const formattedCountdown = `${days}d`;
   newYear.innerHTML =
     "Time remaining until New Year's Eve: " + formattedCountdown;
 };
+
+timer();
 
 setInterval(timer, 1000);
